@@ -1,0 +1,41 @@
+name: wechat-companion
+
+services:
+  app:
+    build: .
+    image: wechat-companion:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      STORAGE_DRIVER: postgres
+      DATABASE_URL: postgres://companion:companion@postgres:5432/companion
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: companion
+      POSTGRES_USER: companion
+      POSTGRES_PASSWORD: companion
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - companion_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U companion -d companion"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  companion_postgres:
+

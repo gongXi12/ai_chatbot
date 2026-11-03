@@ -1,0 +1,51 @@
+{
+  "id": "companion-bridge",
+  "name": "Companion Service Bridge",
+  "description": "Routes official Weixin user turns to the local CompanionService API.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "endpoint": {
+        "type": "string",
+        "minLength": 1
+      },
+      "tokenEnv": {
+        "type": "string",
+        "minLength": 1
+      },
+      "accountId": {
+        "type": "string",
+        "minLength": 1
+      },
+      "timeoutMs": {
+        "type": "integer",
+        "minimum": 1000,
+        "maximum": 120000
+      },
+      "failureMessage": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      }
+    }
+  },
+  "uiHints": {
+    "endpoint": {
+      "label": "CompanionService endpoint"
+    },
+    "tokenEnv": {
+      "label": "Token environment variable",
+      "help": "Environment variable containing the shared x-chat-token."
+    },
+    "accountId": {
+      "label": "Weixin account ID"
+    },
+    "timeoutMs": {
+      "label": "Request timeout (ms)"
+    },
+    "failureMessage": {
+      "label": "Fail-closed reply"
+    }
+  }
+}

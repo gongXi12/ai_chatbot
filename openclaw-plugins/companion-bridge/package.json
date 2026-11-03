@@ -1,0 +1,13 @@
+{
+  "name": "@local/openclaw-companion-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenClaw hook bridge from the official Weixin channel to CompanionService.",
+  "main": "./index.mjs",
+  "openclaw": {
+    "extensions": [
+      "./index.mjs"
+    ]
+  }
+}
